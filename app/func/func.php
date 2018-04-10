@@ -40,19 +40,28 @@ function showRegForm()
     <p class="forgot-password"><a href="index.html">Забыл пароль?</a></p>
   </form>';
 }
+function userLogout()
+{
+    session_destroy();
+}
+
 function main()
 {
-    if (isset($_POST['act']))
+    if (isset($_GET['act']))
     {
-        $action=stripcslashes( htmlspecialchars($_POST['act']));
+        $action=stripcslashes( htmlspecialchars($_GET['act']));
         switch ($action)
         {
-            case 'login': include_once ('./inc/login.php');
+            case 'login': showLoginForm();
+                include_once ('./inc/login.php');
             break;
+            case 'logout': userLogout();
+                include_once ('./inc/login.php');
 
             default : include_once ('./inc/login.php');
         }
     }
+    else include_once ('./inc/login.php');
 }
 
 
